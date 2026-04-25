@@ -10,7 +10,7 @@ export default function PasswordModal({ onSuccess, onClose }) {
     e.preventDefault()
     if (value === ADMIN_PASSWORD) {
       setError(false)
-      onSuccess()
+      onSuccess(value)
     } else {
       setError(true)
       setValue('')

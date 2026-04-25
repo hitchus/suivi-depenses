@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import { loadProducts, saveProducts, generateId } from './store'
+import * as api from './api'
+import { setAdminToken } from './api'
 import Header from './components/Header'
 import ProductGrid from './components/ProductGrid'
 import AdminPanel from './components/AdminPanel'
@@ -9,51 +10,48 @@ import FilterBar from './components/FilterBar'
 import PasswordModal from './components/PasswordModal'
 
 export default function App() {
-  const [products, setProducts] = useState(() => loadProducts())
-  const [filter, setFilter] = useState('all') // 'all' | 'available' | 'soldout'
-  const [categoryFilter, setCategoryFilter] = useState('all') // 'all' | 'glace' | 'friandise'
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [filter, setFilter] = useState('all')
+  const [categoryFilter, setCategoryFilter] = useState('all')
   const [adminMode, setAdminMode] = useState(false)
   const [showPasswordModal, setShowPasswordModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   const [showPromoModal, setShowPromoModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
 
+  useEffect(() => {
+    api.getProducts()
+      .then(setProducts)
+      .catch(() => setError('Impossible de charger les produits'))
+      .finally(() => setLoading(false))
+  }, [])
+
   function handleAdminToggle() {
     if (adminMode) {
       setAdminMode(false)
+      setAdminToken(null)
     } else {
       setShowPasswordModal(true)
     }
   }
 
-  useEffect(() => {
-    saveProducts(products)
-  }, [products])
-
-  const filteredProducts = products.filter(p => {
-    const stockMatch =
-      filter === 'all' ? true :
-      filter === 'available' ? p.inStock :
-      !p.inStock
-    const catMatch =
-      categoryFilter === 'all' ? true :
-      p.category === categoryFilter
-    return stockMatch && catMatch
-  })
-
-  function addProduct(data) {
-    setProducts(prev => [...prev, { ...data, id: generateId(), inStock: true, promo: null }])
+  async function addProduct(data) {
+    const product = await api.addProduct(data)
+    setProducts(prev => [...prev, product])
     setShowAddModal(false)
   }
 
-  function deleteProduct(id) {
+  async function deleteProduct(id) {
+    await api.deleteProduct(id)
     setProducts(prev => prev.filter(p => p.id !== id))
   }
 
-  function toggleStock(id) {
-    setProducts(prev =>
-      prev.map(p => p.id === id ? { ...p, inStock: !p.inStock } : p)
-    )
+  async function toggleStock(id) {
+    const product = products.find(p => p.id === id)
+    const updated = await api.updateProduct(id, { inStock: !product.inStock })
+    setProducts(prev => prev.map(p => p.id === id ? updated : p))
   }
 
   function openPromo(product) {
@@ -61,29 +59,32 @@ export default function App() {
     setShowPromoModal(true)
   }
 
-  function applyPromo(id, promo) {
-    setProducts(prev =>
-      prev.map(p => p.id === id ? { ...p, promo } : p)
-    )
+  async function applyPromo(id, promo) {
+    const updated = await api.updateProduct(id, { promo })
+    setProducts(prev => prev.map(p => p.id === id ? updated : p))
     setShowPromoModal(false)
     setSelectedProduct(null)
   }
 
-  function removePromo(id) {
-    setProducts(prev =>
-      prev.map(p => p.id === id ? { ...p, promo: null } : p)
-    )
+  async function removePromo(id) {
+    const updated = await api.updateProduct(id, { promo: null })
+    setProducts(prev => prev.map(p => p.id === id ? updated : p))
   }
 
-  function changeImage(id, image) {
-    setProducts(prev =>
-      prev.map(p => p.id === id ? { ...p, image } : p)
-    )
+  async function changeImage(id, image) {
+    const updated = await api.updateProduct(id, { image })
+    setProducts(prev => prev.map(p => p.id === id ? updated : p))
   }
+
+  const filteredProducts = products.filter(p => {
+    const stockMatch = filter === 'all' ? true : filter === 'available' ? p.inStock : !p.inStock
+    const catMatch   = categoryFilter === 'all' ? true : p.category === categoryFilter
+    return stockMatch && catMatch
+  })
 
   const availableCount = products.filter(p => p.inStock).length
-  const soldOutCount = products.filter(p => !p.inStock).length
-  const promoCount = products.filter(p => p.promo).length
+  const soldOutCount   = products.filter(p => !p.inStock).length
+  const promoCount     = products.filter(p => p.promo).length
 
   return (
     <div className="app">
@@ -106,15 +107,20 @@ export default function App() {
           categoryFilter={categoryFilter}
           onCategoryFilter={setCategoryFilter}
         />
-        <ProductGrid
-          products={filteredProducts}
-          adminMode={adminMode}
-          onDelete={deleteProduct}
-          onToggleStock={toggleStock}
-          onPromo={openPromo}
-          onRemovePromo={removePromo}
-          onImageChange={changeImage}
-        />
+
+        {loading && <div className="loading-state">⏳ Chargement des produits...</div>}
+        {error   && <div className="error-state">❌ {error}</div>}
+        {!loading && !error && (
+          <ProductGrid
+            products={filteredProducts}
+            adminMode={adminMode}
+            onDelete={deleteProduct}
+            onToggleStock={toggleStock}
+            onPromo={openPromo}
+            onRemovePromo={removePromo}
+            onImageChange={changeImage}
+          />
+        )}
       </main>
 
       {showAddModal && (
@@ -134,7 +140,11 @@ export default function App() {
 
       {showPasswordModal && (
         <PasswordModal
-          onSuccess={() => { setAdminMode(true); setShowPasswordModal(false) }}
+          onSuccess={(pwd) => {
+            setAdminToken(pwd)
+            setAdminMode(true)
+            setShowPasswordModal(false)
+          }}
           onClose={() => setShowPasswordModal(false)}
         />
       )}

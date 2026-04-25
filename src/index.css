@@ -229,6 +229,14 @@ html, body {
 
 .empty-emoji { font-size: 3rem; display: block; margin-bottom: 12px; }
 
+.loading-state, .error-state {
+  text-align: center;
+  padding: 60px 20px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
 /* ===== PRODUCT CARD ===== */
 .product-card {
   background: var(--card-bg);
