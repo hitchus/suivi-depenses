@@ -75,6 +75,12 @@ export default function App() {
     )
   }
 
+  function changeImage(id, image) {
+    setProducts(prev =>
+      prev.map(p => p.id === id ? { ...p, image } : p)
+    )
+  }
+
   const availableCount = products.filter(p => p.inStock).length
   const soldOutCount = products.filter(p => !p.inStock).length
   const promoCount = products.filter(p => p.promo).length
@@ -107,6 +113,7 @@ export default function App() {
           onToggleStock={toggleStock}
           onPromo={openPromo}
           onRemovePromo={removePromo}
+          onImageChange={changeImage}
         />
       </main>
 

@@ -1,6 +1,6 @@
 import ProductCard from './ProductCard'
 
-export default function ProductGrid({ products, adminMode, onDelete, onToggleStock, onPromo, onRemovePromo }) {
+export default function ProductGrid({ products, adminMode, onDelete, onToggleStock, onPromo, onRemovePromo, onImageChange }) {
   if (products.length === 0) {
     return (
       <div className="empty-state">
@@ -21,6 +21,7 @@ export default function ProductGrid({ products, adminMode, onDelete, onToggleSto
           onToggleStock={onToggleStock}
           onPromo={onPromo}
           onRemovePromo={onRemovePromo}
+          onImageChange={onImageChange}
         />
       ))}
     </div>
