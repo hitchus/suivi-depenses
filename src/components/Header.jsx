@@ -3,10 +3,10 @@ export default function Header({ adminMode, onToggleAdmin, availableCount, soldO
     <header className="header">
       <div className="header-top">
         <div className="header-brand">
-          <span className="header-emoji">🍦</span>
+          <img src="/shop/logo.png" alt="Sun Square Almaz" className="header-logo" />
           <div>
             <h1 className="header-title">La Boutique d'Adam</h1>
-            <p className="header-subtitle">Glaces & Friandises de la résidence</p>
+            <p className="header-subtitle">🍦 Glaces & Friandises · Sun Square Almaz</p>
           </div>
         </div>
         <button

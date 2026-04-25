@@ -2,20 +2,20 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --pink:    #ff6eb4;
-  --pink-light: #ffe4f3;
-  --purple:  #a855f7;
-  --blue:    #38bdf8;
-  --yellow:  #fbbf24;
-  --green:   #22c55e;
-  --red:     #ef4444;
-  --orange:  #f97316;
-  --bg:      #fff9fb;
-  --card-bg: #ffffff;
-  --text:    #1e1b2e;
-  --text-muted: #6b7280;
-  --radius:  18px;
-  --shadow:  0 4px 20px rgba(168, 85, 247, 0.12);
+  --green-dark:  #1A5C35;
+  --green:       #1E6B3A;
+  --green-light: #E8F5EE;
+  --gold:        #C9A84C;
+  --gold-light:  #F5EDD0;
+  --gold-pale:   #FBF7EC;
+  --red:         #c0392b;
+  --red-light:   #fdecea;
+  --bg:          #F9F6EE;
+  --card-bg:     #ffffff;
+  --text:        #1a2e1f;
+  --text-muted:  #6b7c6e;
+  --radius:      18px;
+  --shadow:      0 4px 20px rgba(26, 92, 53, 0.12);
 }
 
 html, body {
@@ -34,12 +34,13 @@ html, body {
 
 /* ===== HEADER ===== */
 .header {
-  background: linear-gradient(135deg, #ff6eb4 0%, #a855f7 50%, #38bdf8 100%);
+  background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, #2d8a50 100%);
   border-radius: 0 0 32px 32px;
   padding: 24px 28px 20px;
   margin: 0 -16px 24px;
   color: white;
-  box-shadow: 0 6px 30px rgba(168, 85, 247, 0.3);
+  box-shadow: 0 6px 30px rgba(26, 92, 53, 0.35);
+  border-bottom: 3px solid var(--gold);
 }
 
 .header-top {
@@ -57,32 +58,33 @@ html, body {
   gap: 14px;
 }
 
-.header-emoji {
-  font-size: 3rem;
-  filter: drop-shadow(0 2px 8px rgba(0,0,0,0.2));
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-6px); }
+.header-logo {
+  width: 70px;
+  height: 70px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 2px solid var(--gold);
+  background: white;
+  padding: 3px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
 }
 
 .header-title {
   font-size: 1.8rem;
   font-weight: 900;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  color: var(--gold);
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
 .header-subtitle {
-  font-size: 0.9rem;
-  opacity: 0.9;
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.85);
 }
 
 .admin-toggle {
-  background: rgba(255,255,255,0.25);
-  border: 2px solid rgba(255,255,255,0.6);
-  color: white;
+  background: rgba(255,255,255,0.15);
+  border: 2px solid var(--gold);
+  color: var(--gold);
   padding: 8px 18px;
   border-radius: 50px;
   font-family: inherit;
@@ -92,11 +94,11 @@ html, body {
   transition: all 0.2s;
 }
 
-.admin-toggle:hover { background: rgba(255,255,255,0.4); }
+.admin-toggle:hover { background: rgba(201,168,76,0.25); }
 .admin-toggle.active {
-  background: white;
-  color: var(--purple);
-  border-color: white;
+  background: var(--gold);
+  color: var(--green-dark);
+  border-color: var(--gold);
 }
 
 .header-stats {
@@ -109,7 +111,8 @@ html, body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(201,168,76,0.4);
   backdrop-filter: blur(10px);
   padding: 6px 14px;
   border-radius: 50px;
@@ -119,8 +122,8 @@ html, body {
 
 /* ===== ADMIN PANEL ===== */
 .admin-panel {
-  background: linear-gradient(135deg, #fdf4ff, #ede9fe);
-  border: 2px dashed var(--purple);
+  background: linear-gradient(135deg, var(--gold-pale), var(--green-light));
+  border: 2px dashed var(--green);
   border-radius: var(--radius);
   padding: 14px 20px;
   margin-bottom: 20px;
@@ -136,14 +139,14 @@ html, body {
 
 .admin-panel-title {
   font-weight: 800;
-  color: var(--purple);
+  color: var(--green);
   font-size: 1rem;
 }
 
 .btn-add {
-  background: linear-gradient(135deg, var(--purple), var(--pink));
+  background: linear-gradient(135deg, var(--green), #2d8a50);
   color: white;
-  border: none;
+  border: 2px solid var(--gold);
   padding: 10px 22px;
   border-radius: 50px;
   font-family: inherit;
@@ -151,12 +154,12 @@ html, body {
   font-weight: 800;
   cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 14px rgba(168,85,247,0.4);
+  box-shadow: 0 4px 14px rgba(26,92,53,0.3);
 }
 
 .btn-add:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(168,85,247,0.5);
+  box-shadow: 0 6px 20px rgba(26,92,53,0.4);
 }
 
 /* ===== FILTER BAR ===== */
@@ -203,16 +206,16 @@ html, body {
   color: var(--text-muted);
 }
 
-.filter-btn:hover { background: #e9d5ff; color: var(--purple); }
+.filter-btn:hover { background: var(--green-light); color: var(--green); }
 
 .filter-btn.active {
-  background: var(--purple);
+  background: var(--green);
   color: white;
-  border-color: var(--purple);
+  border-color: var(--green);
 }
 
-.filter-btn.available.active { background: var(--green); border-color: var(--green); }
-.filter-btn.soldout.active   { background: var(--red);   border-color: var(--red); }
+.filter-btn.available.active { background: var(--green);      border-color: var(--green); }
+.filter-btn.soldout.active   { background: var(--red);        border-color: var(--red); }
 
 /* ===== PRODUCT GRID ===== */
 .product-grid {
@@ -254,30 +257,30 @@ html, body {
 
 .product-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 30px rgba(168,85,247,0.2);
+  box-shadow: 0 8px 30px rgba(26,92,53,0.18);
 }
 
 .product-card.has-promo {
-  border-color: var(--yellow);
-  background: linear-gradient(135deg, #fffbeb, #ffffff);
+  border-color: var(--gold);
+  background: linear-gradient(135deg, var(--gold-pale), #ffffff);
 }
 
 .product-card.out-of-stock {
   opacity: 0.65;
-  background: #f9fafb;
+  background: #f5f5f5;
 }
 
 .promo-badge {
   position: absolute;
   top: 12px;
   right: 12px;
-  background: linear-gradient(135deg, var(--yellow), var(--orange));
+  background: linear-gradient(135deg, var(--gold), #a07830);
   color: white;
   font-weight: 900;
   font-size: 0.8rem;
   padding: 4px 10px;
   border-radius: 50px;
-  box-shadow: 0 2px 8px rgba(251,191,36,0.4);
+  box-shadow: 0 2px 8px rgba(201,168,76,0.5);
 }
 
 .soldout-overlay {
@@ -290,7 +293,7 @@ html, body {
 }
 
 .soldout-overlay span {
-  background: rgba(239,68,68,0.85);
+  background: rgba(192,57,43,0.85);
   color: white;
   font-weight: 900;
   font-size: 1.1rem;
@@ -311,7 +314,7 @@ html, body {
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 4px;
-  background: #f9fafb;
+  background: var(--green-light);
 }
 
 .card-media-editable {
@@ -325,7 +328,7 @@ html, body {
 .card-media-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(168, 85, 247, 0.55);
+  background: rgba(26, 92, 53, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -382,7 +385,7 @@ html, body {
 .price {
   font-size: 1.3rem;
   font-weight: 900;
-  color: var(--purple);
+  color: var(--green);
 }
 
 .price-original {
@@ -395,7 +398,7 @@ html, body {
 .price-promo {
   font-size: 1.3rem;
   font-weight: 900;
-  color: var(--orange);
+  color: var(--gold);
 }
 
 /* ===== CARD ACTIONS ===== */
@@ -463,7 +466,7 @@ html, body {
 .modal-header h2 {
   font-size: 1.3rem;
   font-weight: 900;
-  color: var(--purple);
+  color: var(--green);
 }
 
 .modal-close {
@@ -512,7 +515,7 @@ html, body {
 
 .form-group input:focus,
 .form-group select:focus {
-  border-color: var(--purple);
+  border-color: var(--green);
 }
 
 .form-row {
@@ -541,10 +544,10 @@ html, body {
   justify-content: center;
 }
 
-.emoji-option:hover  { background: #ede9fe; }
+.emoji-option:hover  { background: var(--green-light); }
 .emoji-option.selected {
-  background: #ede9fe;
-  border-color: var(--purple);
+  background: var(--green-light);
+  border-color: var(--green);
 }
 
 .form-error {
@@ -576,7 +579,7 @@ html, body {
 
 .btn-confirm {
   flex: 1;
-  background: linear-gradient(135deg, var(--purple), var(--pink));
+  background: linear-gradient(135deg, var(--green), #2d8a50);
   border: none;
   padding: 12px;
   border-radius: 12px;
@@ -586,11 +589,11 @@ html, body {
   cursor: pointer;
   color: white;
   transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 4px 14px rgba(168,85,247,0.3);
+  box-shadow: 0 4px 14px rgba(26,92,53,0.3);
 }
 .btn-confirm:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(168,85,247,0.4);
+  box-shadow: 0 6px 18px rgba(26,92,53,0.4);
 }
 
 /* ===== PROMO MODAL ===== */
@@ -598,7 +601,7 @@ html, body {
   display: flex;
   align-items: center;
   gap: 12px;
-  background: #fdf4ff;
+  background: var(--gold-pale);
   border-radius: 14px;
   padding: 12px 16px;
   margin-bottom: 20px;
@@ -630,11 +633,11 @@ html, body {
   transition: all 0.15s;
 }
 
-.promo-preset:hover  { background: #fef9c3; color: #92400e; }
+.promo-preset:hover  { background: var(--gold-pale); color: #7a5c10; }
 .promo-preset.active {
-  background: linear-gradient(135deg, var(--yellow), var(--orange));
+  background: linear-gradient(135deg, var(--gold), #a07830);
   color: white;
-  border-color: var(--orange);
+  border-color: var(--gold);
 }
 
 .promo-custom { display: flex; flex-direction: column; gap: 8px; }
@@ -647,21 +650,22 @@ html, body {
 
 .promo-slider-row input[type=range] {
   flex: 1;
-  accent-color: var(--purple);
+  accent-color: var(--green);
   height: 6px;
 }
 
 .promo-value {
   font-weight: 900;
   font-size: 1.1rem;
-  color: var(--orange);
+  color: var(--gold);
   min-width: 50px;
 }
 
 .promo-preview-price {
   display: flex;
   gap: 20px;
-  background: #fef9c3;
+  background: var(--gold-pale);
+  border: 1px solid var(--gold);
   border-radius: 12px;
   padding: 12px 16px;
   justify-content: center;
@@ -676,7 +680,7 @@ html, body {
 .price-now {
   font-weight: 900;
   font-size: 1rem;
-  color: var(--orange);
+  color: var(--gold);
 }
 
 /* ===== IMAGE UPLOAD ===== */
@@ -694,14 +698,14 @@ html, body {
 }
 
 .image-upload-zone:hover {
-  border-color: var(--purple);
-  background: #fdf4ff;
+  border-color: var(--green);
+  background: var(--green-light);
 }
 
 .upload-icon  { font-size: 2rem; }
 .upload-text  { font-weight: 700; font-size: 0.9rem; color: var(--text); }
 .upload-hint  { font-size: 0.75rem; color: var(--text-muted); }
-.upload-loading { font-size: 0.9rem; color: var(--purple); font-weight: 700; }
+.upload-loading { font-size: 0.9rem; color: var(--green); font-weight: 700; }
 
 .image-preview-wrap {
   position: relative;
