@@ -24,11 +24,11 @@ export default function ProductCard({ product, adminMode, onDelete, onToggleStoc
       <div className="card-price-row">
         {promo ? (
           <>
-            <span className="price-original">{price.toFixed(2)} €</span>
-            <span className="price-promo">{promoPrice} €</span>
+            <span className="price-original">{price.toFixed(2)} DH</span>
+            <span className="price-promo">{promoPrice} DH</span>
           </>
         ) : (
-          <span className="price">{price.toFixed(2)} €</span>
+          <span className="price">{price.toFixed(2)} DH</span>
         )}
       </div>
 

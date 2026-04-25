@@ -51,8 +51,8 @@ export default function PromoModal({ product, onApply, onClose }) {
           </div>
 
           <div className="promo-preview-price">
-            <span className="price-was">Avant : {product.price.toFixed(2)} €</span>
-            <span className="price-now">Après : {promoPrice} €</span>
+            <span className="price-was">Avant : {product.price.toFixed(2)} DH</span>
+            <span className="price-now">Après : {promoPrice} DH</span>
           </div>
         </div>
 
