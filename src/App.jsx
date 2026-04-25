@@ -6,15 +6,25 @@ import AdminPanel from './components/AdminPanel'
 import AddProductModal from './components/AddProductModal'
 import PromoModal from './components/PromoModal'
 import FilterBar from './components/FilterBar'
+import PasswordModal from './components/PasswordModal'
 
 export default function App() {
   const [products, setProducts] = useState(() => loadProducts())
   const [filter, setFilter] = useState('all') // 'all' | 'available' | 'soldout'
   const [categoryFilter, setCategoryFilter] = useState('all') // 'all' | 'glace' | 'friandise'
   const [adminMode, setAdminMode] = useState(false)
+  const [showPasswordModal, setShowPasswordModal] = useState(false)
   const [showAddModal, setShowAddModal] = useState(false)
   const [showPromoModal, setShowPromoModal] = useState(false)
   const [selectedProduct, setSelectedProduct] = useState(null)
+
+  function handleAdminToggle() {
+    if (adminMode) {
+      setAdminMode(false)
+    } else {
+      setShowPasswordModal(true)
+    }
+  }
 
   useEffect(() => {
     saveProducts(products)
@@ -73,7 +83,7 @@ export default function App() {
     <div className="app">
       <Header
         adminMode={adminMode}
-        onToggleAdmin={() => setAdminMode(a => !a)}
+        onToggleAdmin={handleAdminToggle}
         availableCount={availableCount}
         soldOutCount={soldOutCount}
         promoCount={promoCount}
@@ -112,6 +122,13 @@ export default function App() {
           product={selectedProduct}
           onApply={(promo) => applyPromo(selectedProduct.id, promo)}
           onClose={() => { setShowPromoModal(false); setSelectedProduct(null) }}
+        />
+      )}
+
+      {showPasswordModal && (
+        <PasswordModal
+          onSuccess={() => { setAdminMode(true); setShowPasswordModal(false) }}
+          onClose={() => setShowPasswordModal(false)}
         />
       )}
     </div>

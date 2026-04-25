@@ -630,6 +630,17 @@ html, body {
   color: var(--orange);
 }
 
+/* ===== PASSWORD MODAL ===== */
+.password-modal { max-width: 360px; }
+
+.password-hint {
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 500px) {
   .header-title  { font-size: 1.4rem; }
