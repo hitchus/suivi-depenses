@@ -13,6 +13,7 @@ export default function AddProductModal({ onAdd, onClose }) {
     emoji: '🍦',
     image: null,
     price: '',
+    stock: '',
     category: 'glace',
     description: '',
   })
@@ -44,8 +45,10 @@ export default function AddProductModal({ onAdd, onClose }) {
     if (!form.name.trim()) return setError('Le nom est obligatoire')
     const price = parseFloat(form.price)
     if (isNaN(price) || price <= 0) return setError('Prix invalide')
+    const stock = parseInt(form.stock)
+    if (isNaN(stock) || stock < 0) return setError('Stock invalide')
     setError('')
-    onAdd({ ...form, price })
+    onAdd({ ...form, price, stock })
   }
 
   return (
@@ -133,8 +136,22 @@ export default function AddProductModal({ onAdd, onClose }) {
                 onChange={e => setForm(f => ({ ...f, price: e.target.value }))}
               />
             </div>
-
             <div className="form-group">
+              <label htmlFor="stock">Stock initial *</label>
+              <input
+                id="stock"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="10"
+                value={form.stock}
+                onChange={e => setForm(f => ({ ...f, stock: e.target.value }))}
+              />
+            </div>
+          </div>
+
+          <div className="form-row">
+            <div className="form-group" style={{ gridColumn: '1 / -1' }}>
               <label htmlFor="category">Catégorie</label>
               <select
                 id="category"

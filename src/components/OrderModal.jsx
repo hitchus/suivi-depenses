@@ -31,10 +31,10 @@ export default function OrderModal({ cart, products, onUpdateQty, onClose, onSuc
       return setError('Votre panier est vide')
     setLoading(true)
     try {
-      await api.placeOrder({ ...form, items })
-      onSuccess()
-    } catch {
-      setError('Erreur lors de la commande, réessaie.')
+      const result = await api.placeOrder({ ...form, items })
+      onSuccess(result.products)
+    } catch (e) {
+      setError(e.message || 'Erreur lors de la commande, réessaie.')
     } finally {
       setLoading(false)
     }

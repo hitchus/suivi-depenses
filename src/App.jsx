@@ -77,6 +77,10 @@ export default function App() {
     const updated = await api.updateProduct(id, { image })
     setProducts(prev => prev.map(p => p.id === id ? updated : p))
   }
+  async function changeStock(id, stock) {
+    const updated = await api.updateProduct(id, { stock })
+    setProducts(prev => prev.map(p => p.id === id ? updated : p))
+  }
 
   // ── Panier ──
   function addToCart(product) {
@@ -135,6 +139,7 @@ export default function App() {
             onImageChange={changeImage}
             onAddToCart={addToCart}
             cart={cart}
+            onStockChange={changeStock}
           />
         )}
       </main>
@@ -162,7 +167,8 @@ export default function App() {
           products={products}
           onUpdateQty={updateCartQty}
           onClose={() => setShowOrderModal(false)}
-          onSuccess={() => {
+          onSuccess={(updatedProducts) => {
+            if (updatedProducts) setProducts(updatedProducts)
             clearCart()
             setShowOrderModal(false)
             setShowConfirm(true)
