@@ -25,3 +25,8 @@ export const getProducts    = ()         => request('GET',    '/products')
 export const addProduct     = (data)     => request('POST',   '/products', data)
 export const updateProduct  = (id, data) => request('PUT',    `/products/${id}`, data)
 export const deleteProduct  = (id)       => request('DELETE', `/products/${id}`)
+
+export const placeOrder     = (data)     => request('POST',   '/orders', data)
+export const getOrders      = ()         => request('GET',    '/orders')
+export const updateOrder    = (id, data) => request('PUT',    `/orders/${id}`, data)
+export const deleteOrder    = (id)       => request('DELETE', `/orders/${id}`)

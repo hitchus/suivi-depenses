@@ -1,6 +1,6 @@
 import ProductCard from './ProductCard'
 
-export default function ProductGrid({ products, adminMode, onDelete, onToggleStock, onPromo, onRemovePromo, onImageChange }) {
+export default function ProductGrid({ products, adminMode, onDelete, onToggleStock, onPromo, onRemovePromo, onImageChange, onAddToCart, cart }) {
   if (products.length === 0) {
     return (
       <div className="empty-state">
@@ -22,6 +22,8 @@ export default function ProductGrid({ products, adminMode, onDelete, onToggleSto
           onPromo={onPromo}
           onRemovePromo={onRemovePromo}
           onImageChange={onImageChange}
+          onAddToCart={onAddToCart}
+          cartQty={(cart || []).find(i => i.productId === product.id)?.qty || 0}
         />
       ))}
     </div>

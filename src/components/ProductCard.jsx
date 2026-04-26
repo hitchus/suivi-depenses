@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { compressImage } from '../utils/imageUtils'
 
-export default function ProductCard({ product, adminMode, onDelete, onToggleStock, onPromo, onRemovePromo, onImageChange }) {
+export default function ProductCard({ product, adminMode, onDelete, onToggleStock, onPromo, onRemovePromo, onImageChange, onAddToCart, cartQty }) {
   const { id, name, emoji, image, price, category, description, inStock, promo } = product
   const promoPrice = promo ? (price * (1 - promo.discount / 100)).toFixed(2) : null
   const fileRef = useRef()
@@ -64,6 +64,12 @@ export default function ProductCard({ product, adminMode, onDelete, onToggleStoc
           <span className="price">{price.toFixed(2)} DH</span>
         )}
       </div>
+
+      {!adminMode && inStock && (
+        <button className="btn-add-cart" onClick={() => onAddToCart(product)}>
+          {cartQty > 0 ? `🛒 Dans le panier (${cartQty})` : '🛒 Commander'}
+        </button>
+      )}
 
       {adminMode && (
         <div className="card-actions">
