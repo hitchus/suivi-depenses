@@ -1,11 +1,13 @@
+import Logo from './Logo'
+
 export default function Header({ adminMode, onToggleAdmin, availableCount, soldOutCount, promoCount }) {
   return (
     <header className="header">
       <div className="header-top">
         <div className="header-brand">
-          <img src="/shop/logo.png" alt="Sun Square Almaz" className="header-logo" />
+          <Logo size={70} />
           <div>
-            <h1 className="header-title">La Boutique d'Adam</h1>
+            <h1 className="header-title">Boutique d'Adam & Aicha</h1>
             <p className="header-subtitle">🍦 Glaces & Friandises · Sun Square Almaz</p>
           </div>
         </div>
