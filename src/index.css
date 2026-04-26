@@ -840,6 +840,57 @@ html, body {
   padding: 4px 0;
   color: var(--text);
 }
+.cart-empty-msg {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  padding: 8px 0;
+}
+
+.order-item-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.order-item-name  { flex: 1; font-size: 0.9rem; font-weight: 600; }
+.order-item-price { font-weight: 800; font-size: 0.9rem; color: var(--green); min-width: 60px; text-align: right; }
+.order-item-remove {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 2px 4px;
+  opacity: 0.6;
+  transition: opacity 0.15s;
+}
+.order-item-remove:hover { opacity: 1; }
+
+.order-item-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.qty-btn {
+  background: white;
+  border: 2px solid var(--green);
+  color: var(--green);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  transition: all 0.15s;
+}
+.qty-btn:hover { background: var(--green); color: white; }
+.qty-value { font-weight: 800; font-size: 1rem; min-width: 20px; text-align: center; }
+
 .order-summary-total {
   display: flex;
   justify-content: space-between;

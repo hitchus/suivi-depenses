@@ -86,6 +86,10 @@ export default function App() {
       return [...prev, { productId: product.id, qty: 1 }]
     })
   }
+  function updateCartQty(productId, qty) {
+    if (qty <= 0) setCart(prev => prev.filter(i => i.productId !== productId))
+    else setCart(prev => prev.map(i => i.productId === productId ? { ...i, qty } : i))
+  }
   function clearCart() { setCart([]) }
 
   const filteredProducts = products.filter(p => {
@@ -156,6 +160,7 @@ export default function App() {
         <OrderModal
           cart={cart}
           products={products}
+          onUpdateQty={updateCartQty}
           onClose={() => setShowOrderModal(false)}
           onSuccess={() => {
             clearCart()

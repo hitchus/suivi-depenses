@@ -1,7 +1,10 @@
 import { useState } from 'react'
 import * as api from '../api'
 
-export default function OrderModal({ cart, products, onClose, onSuccess }) {
+const IMMEUBLES    = Array.from({ length: 16 }, (_, i) => i + 1)
+const APPARTEMENTS = Array.from({ length: 24 }, (_, i) => i + 1)
+
+export default function OrderModal({ cart, products, onUpdateQty, onClose, onSuccess }) {
   const [form, setForm] = useState({ prenom: '', nom: '', email: '', immeuble: '', appartement: '' })
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -24,6 +27,8 @@ export default function OrderModal({ cart, products, onClose, onSuccess }) {
       return setError('Tous les champs sont obligatoires')
     if (!email.includes('@'))
       return setError('Email invalide')
+    if (items.length === 0)
+      return setError('Votre panier est vide')
     setLoading(true)
     try {
       await api.placeOrder({ ...form, items })
@@ -43,22 +48,46 @@ export default function OrderModal({ cart, products, onClose, onSuccess }) {
           <button className="modal-close" onClick={onClose}>✕</button>
         </div>
 
-        {/* Récapitulatif */}
+        {/* ── Panier modifiable ── */}
         <div className="order-summary">
           <p className="order-summary-title">Récapitulatif</p>
+
+          {items.length === 0 && (
+            <p className="cart-empty-msg">Votre panier est vide</p>
+          )}
+
           {items.map(item => (
-            <div key={item.productId} className="order-summary-row">
-              <span>{item.emoji} {item.name} ×{item.qty}</span>
-              <span>{(item.unitPrice * item.qty).toFixed(2)} DH</span>
+            <div key={item.productId} className="order-item-row">
+              <span className="order-item-name">{item.emoji} {item.name}</span>
+              <div className="order-item-controls">
+                <button
+                  className="qty-btn"
+                  onClick={() => onUpdateQty(item.productId, item.qty - 1)}
+                >−</button>
+                <span className="qty-value">{item.qty}</span>
+                <button
+                  className="qty-btn"
+                  onClick={() => onUpdateQty(item.productId, item.qty + 1)}
+                >+</button>
+              </div>
+              <span className="order-item-price">{(item.unitPrice * item.qty).toFixed(2)} DH</span>
+              <button
+                className="order-item-remove"
+                onClick={() => onUpdateQty(item.productId, 0)}
+                title="Supprimer"
+              >🗑️</button>
             </div>
           ))}
-          <div className="order-summary-total">
-            <span>Total</span>
-            <span>{total.toFixed(2)} DH</span>
-          </div>
+
+          {items.length > 0 && (
+            <div className="order-summary-total">
+              <span>Total</span>
+              <span>{total.toFixed(2)} DH</span>
+            </div>
+          )}
         </div>
 
-        {/* Formulaire */}
+        {/* ── Formulaire ── */}
         <form onSubmit={handleSubmit} className="modal-form">
           <div className="form-row">
             <div className="form-group">
@@ -79,11 +108,21 @@ export default function OrderModal({ cart, products, onClose, onSuccess }) {
           <div className="form-row">
             <div className="form-group">
               <label>Immeuble *</label>
-              <input placeholder="Ex: Bât. A" value={form.immeuble} onChange={e => set('immeuble', e.target.value)} />
+              <select value={form.immeuble} onChange={e => set('immeuble', e.target.value)}>
+                <option value="">-- Choisir --</option>
+                {IMMEUBLES.map(n => (
+                  <option key={n} value={n}>Immeuble {n}</option>
+                ))}
+              </select>
             </div>
             <div className="form-group">
               <label>Appartement *</label>
-              <input placeholder="Ex: Apt 12" value={form.appartement} onChange={e => set('appartement', e.target.value)} />
+              <select value={form.appartement} onChange={e => set('appartement', e.target.value)}>
+                <option value="">-- Choisir --</option>
+                {APPARTEMENTS.map(n => (
+                  <option key={n} value={n}>Appartement {n}</option>
+                ))}
+              </select>
             </div>
           </div>
 
@@ -91,7 +130,7 @@ export default function OrderModal({ cart, products, onClose, onSuccess }) {
 
           <div className="modal-actions">
             <button type="button" className="btn-cancel" onClick={onClose}>Annuler</button>
-            <button type="submit" className="btn-confirm" disabled={loading}>
+            <button type="submit" className="btn-confirm" disabled={loading || items.length === 0}>
               {loading ? '⏳ Envoi...' : '✅ Confirmer la commande'}
             </button>
           </div>
