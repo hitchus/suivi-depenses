@@ -1,27 +1,32 @@
 import Logo from './Logo'
+import BrandLogo from './BrandLogo'
 
 export default function Header({ adminMode, onToggleAdmin, availableCount, soldOutCount, promoCount }) {
   return (
     <header className="header">
       <div className="header-top">
         <div className="header-brand">
-          <Logo size={70} />
+          <BrandLogo size={72} />
           <div>
             <h1 className="header-title">Boutique d'Adam & Aicha</h1>
             <p className="header-subtitle">🍦 Glaces & Friandises · Sun Square Almaz</p>
           </div>
         </div>
 
-        {/* Visible uniquement si admin actif */}
-        {adminMode && (
-          <button
-            className="admin-toggle active"
-            onClick={onToggleAdmin}
-            title="Désactiver le mode admin"
-          >
-            🔓 Admin ON
-          </button>
-        )}
+        <div className="header-right">
+          <div className="sunsquare-logo">
+            <Logo size={44} />
+          </div>
+          {adminMode && (
+            <button
+              className="admin-toggle active"
+              onClick={onToggleAdmin}
+              title="Désactiver le mode admin"
+            >
+              🔓 Admin ON
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="header-stats">

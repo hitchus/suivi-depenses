@@ -123,6 +123,21 @@ body::before {
   margin-bottom: 20px;
 }
 
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sunsquare-logo {
+  opacity: 0.55;
+  transition: opacity 0.3s;
+  filter: drop-shadow(0 0 6px rgba(201,168,76,0.2));
+}
+.sunsquare-logo:hover {
+  opacity: 0.85;
+}
+
 .header-brand {
   display: flex;
   align-items: center;
