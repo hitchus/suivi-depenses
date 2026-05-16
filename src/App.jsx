@@ -81,6 +81,10 @@ export default function App() {
     const updated = await api.updateProduct(id, { stock })
     setProducts(prev => prev.map(p => p.id === id ? updated : p))
   }
+  async function changePrice(id, price) {
+    const updated = await api.updateProduct(id, { price })
+    setProducts(prev => prev.map(p => p.id === id ? updated : p))
+  }
 
   // ── Panier ──
   function addToCart(product) {
@@ -140,6 +144,7 @@ export default function App() {
             onAddToCart={addToCart}
             cart={cart}
             onStockChange={changeStock}
+            onPriceChange={changePrice}
           />
         )}
       </main>

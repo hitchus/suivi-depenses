@@ -36,11 +36,12 @@ html, body {
 .header {
   background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, #2d8a50 100%);
   border-radius: 0 0 32px 32px;
-  padding: 24px 28px 20px;
+  padding: 24px 28px 28px;
   margin: 0 -16px 24px;
   color: white;
   box-shadow: 0 6px 30px rgba(26, 92, 53, 0.35);
   border-bottom: 3px solid var(--gold);
+  position: relative;
 }
 
 .header-top {
@@ -748,6 +749,62 @@ html, body {
   color: var(--text-muted);
   margin-bottom: 20px;
   font-weight: 600;
+}
+
+/* ===== ADMIN SECRET BUTTON ===== */
+.admin-secret-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 0.85rem;
+  opacity: 0.12;
+  cursor: pointer;
+  padding: 4px;
+  transition: opacity 0.3s;
+  color: white;
+  filter: grayscale(1);
+}
+.admin-secret-btn:hover { opacity: 0.55; }
+
+/* ===== PRICE EDITOR (admin) ===== */
+.price-edit-btn {
+  background: none;
+  border: 1px dashed transparent;
+  border-radius: 8px;
+  padding: 2px 6px;
+  cursor: pointer;
+  font-family: inherit;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: border-color 0.2s;
+}
+.price-edit-btn:hover { border-color: var(--gold); }
+.price-edit-hint { font-size: 0.7rem; opacity: 0.5; }
+
+.price-input-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.price-input {
+  width: 65px;
+  border: 2px solid var(--gold);
+  border-radius: 8px;
+  padding: 3px 6px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 900;
+  text-align: center;
+  color: var(--green);
+  outline: none;
+}
+.price-input-unit {
+  font-weight: 800;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
 /* ===== STOCK BADGE ===== */

@@ -11,13 +11,17 @@ export default function Header({ adminMode, onToggleAdmin, availableCount, soldO
             <p className="header-subtitle">🍦 Glaces & Friandises · Sun Square Almaz</p>
           </div>
         </div>
-        <button
-          className={`admin-toggle ${adminMode ? 'active' : ''}`}
-          onClick={onToggleAdmin}
-          title="Mode administrateur"
-        >
-          {adminMode ? '🔓 Admin ON' : '🔒 Admin'}
-        </button>
+
+        {/* Visible uniquement si admin actif */}
+        {adminMode && (
+          <button
+            className="admin-toggle active"
+            onClick={onToggleAdmin}
+            title="Désactiver le mode admin"
+          >
+            🔓 Admin ON
+          </button>
+        )}
       </div>
 
       <div className="header-stats">
@@ -34,6 +38,11 @@ export default function Header({ adminMode, onToggleAdmin, availableCount, soldO
           <span>{promoCount} promo{promoCount > 1 ? 's' : ''}</span>
         </div>
       </div>
+
+      {/* Bouton admin discret — bas à droite, quasi invisible */}
+      {!adminMode && (
+        <button className="admin-secret-btn" onClick={onToggleAdmin} title="">🔒</button>
+      )}
     </header>
   )
 }
