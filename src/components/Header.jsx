@@ -29,6 +29,10 @@ export default function Header({ adminMode, onToggleAdmin, availableCount, soldO
         </div>
       </div>
 
+      <div className="header-slogan">
+        🌿 On se régale, on garde la résidence propre — les poubelles sont nos amies !
+      </div>
+
       <div className="header-stats">
         <div className="stat-badge stat-available">
           <span>✅</span>
