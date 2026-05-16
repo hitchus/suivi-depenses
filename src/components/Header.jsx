@@ -8,7 +8,7 @@ export default function Header({ adminMode, onToggleAdmin, availableCount, soldO
         <div className="header-brand">
           <BrandLogo size={72} />
           <div>
-            <h1 className="header-title">Boutique d'Adam & Aicha</h1>
+            <h1 className="header-title">Sweet Corner · Adam & Aicha</h1>
             <p className="header-subtitle">🍦 Glaces & Friandises · Sun Square Almaz</p>
           </div>
         </div>
